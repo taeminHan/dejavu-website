@@ -1,7 +1,7 @@
 import { useEffect, useState, type CSSProperties } from 'react'
 
 const repositoryUrl = 'https://github.com/taeminHan/dejavu'
-const fallbackReleaseTag = 'v0.9.0-rc.5'
+const fallbackReleaseTag = 'v0.9.0-rc.6'
 const fallbackDownloadUrl = `${repositoryUrl}/releases/download/${fallbackReleaseTag}/dejavu-Setup.exe`
 const homeUrl = '/dejavu/'
 const guideUrl = '/dejavu/guide/'
@@ -161,9 +161,12 @@ function LandingPage() {
               <span>Claude</span><div className="meter"><i style={progressStyle(16)} /></div><b>16%</b>
             </div>
           </div>
+          <a className="scroll-cue" href="#overview" aria-label="아래 제품 소개 보기">
+            <span>더 알아보기</span><i aria-hidden="true" />
+          </a>
         </section>
 
-        <section className="trust-strip" aria-label="제품 특징 요약" data-reveal="fade">
+        <section className="trust-strip" id="overview" aria-label="제품 특징 요약" data-reveal="fade">
           <span>항상 표시</span><i /><span>약 1분 자동 갱신</span><i /><span>앱 내 업데이트</span><i /><span>완전 제거</span><i /><span>소스 공개</span>
         </section>
 
@@ -185,7 +188,7 @@ function LandingPage() {
           <div className="privacy-orbit" aria-hidden="true" data-reveal="scale"><BrandMark size="large" /></div>
           <div className="privacy-copy" data-reveal="right">
             <p className="section-kicker">LOCAL FIRST</p><h2><span className="nowrap">당신의 데이터는</span><br />당신의 PC에.</h2>
-            <p>dejavu는 자체 계정이나 중계 서버를 운영하지 않습니다. 사용량은 이 PC에 로그인된 Claude Code와 Codex에서 조회하며 토큰과 대화 내용은 dejavu 설정에 저장하지 않습니다. 앱을 제거하면 dejavu가 만든 로컬 데이터도 함께 정리됩니다.</p>
+            <p>dejavu는 자체 계정이나 중계 서버를 운영하지 않습니다. 사용량은 이 PC의 Claude Desktop·Claude Code와 Codex Desktop·CLI에서 조회하며 토큰과 대화 내용은 dejavu 설정에 저장하지 않습니다. 앱을 제거하면 dejavu가 만든 로컬 데이터도 함께 정리됩니다.</p>
             <a href={`${repositoryUrl}/blob/main/PRIVACY.md`} target="_blank" rel="noreferrer">개인정보 처리 방식 자세히 보기 <span aria-hidden="true">→</span></a>
           </div>
         </section>
@@ -202,7 +205,16 @@ function LandingPage() {
         </section>
 
         <section className="name-story" aria-labelledby="name-story-title" data-reveal="up">
-          <div className="name-story-caption"><span>NAME ORIGIN</span><i /> 매우 치밀한 네이밍 과정</div>
+          <div className="name-story-video">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/ZbO9PBdFRdc?rel=0"
+              title="리센느 Deja Vu 영상"
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </div>
           <div className="name-story-copy">
             <h2 id="name-story-title">이름이 <em>Dejavu</em>인 이유는</h2>
             <p>그냥 리센느 <strong>Deja Vu</strong> 듣다가<br />떠오른 아이디어여서 그렇습니다.</p>
@@ -269,15 +281,15 @@ function GuidePage() {
                 <li><strong>설치 실행</strong><span>설치 파일을 실행하면 현재 Windows 사용자 계정에 설치됩니다. 관리자 권한은 필요하지 않습니다.</span></li>
                 <li><strong>SmartScreen 확인</strong><span>아직 공인 코드 서명이 없는 시험판에서는 Windows의 게시자 경고가 표시될 수 있습니다.</span></li>
               </ol>
-              <div className="guide-note"><strong>시스템 요구 사항</strong><span>Windows 11 64비트와 Claude Code 또는 Codex CLI가 필요합니다. 사용할 서비스 하나만 설치되어 있어도 됩니다.</span></div>
+              <div className="guide-note"><strong>시스템 요구 사항</strong><span>Windows 11 64비트와 Claude Desktop·Claude Code 또는 Codex Desktop·CLI 중 사용할 서비스가 필요합니다.</span></div>
             </section>
 
             <section className="guide-section" id="first-run">
               <p className="guide-number">02</p><h2>처음 시작</h2>
-              <p>dejavu는 별도 계정을 만들지 않습니다. 이 PC에서 Claude Code와 Codex에 로그인된 상태를 자동으로 감지합니다.</p>
+              <p>dejavu는 별도 계정을 만들지 않습니다. 이 PC에 설치된 Claude와 Codex 앱의 로그인 상태를 자동으로 감지합니다.</p>
               <div className="guide-grid">
-                <div><h3>Claude</h3><p>Claude Code 로그인이 확인되면 5시간, 주간 전체와 Fable 사용률을 표시합니다. 로그인이 필요하면 안내 버튼으로 Claude 로그인을 열 수 있습니다.</p></div>
-                <div><h3>Codex</h3><p>설치된 Codex CLI의 로컬 app-server에서 5시간·주간 사용률, 초기화 시각과 초기화권 상태를 읽습니다.</p></div>
+                <div><h3>Claude</h3><p>Claude Desktop만 있어도 최근 5시간·주간 사용률을 감지합니다. Fable과 정확한 초기화 시각까지 보려면 안내 버튼으로 Claude Code에 로그인할 수 있습니다.</p></div>
+                <div><h3>Codex</h3><p>Codex Desktop의 내장 런타임 또는 별도 CLI의 공식 로컬 app-server에서 사용률, 초기화 시각과 초기화권 상태를 읽습니다.</p></div>
               </div>
               <p className="guide-muted">토큰, 프롬프트와 대화 내용은 dejavu 설정 파일에 저장하지 않습니다.</p>
             </section>
@@ -315,14 +327,14 @@ function GuidePage() {
                 <li><strong>dejavu 제거</strong><span>dejavu 오른쪽 메뉴에서 <em>제거</em>를 선택합니다.</span></li>
                 <li><strong>로컬 데이터 정리</strong><span>앱, 바로가기, 시작프로그램 등록과 함께 dejavu의 설정, 위젯 위치, 캐시 및 진단 파일이 삭제됩니다.</span></li>
               </ol>
-              <div className="guide-note safe"><strong>연결 앱 데이터는 유지됩니다</strong><span>Claude Code와 Codex의 로그인 정보, 설정 및 대화 데이터는 삭제하지 않습니다.</span></div>
+              <div className="guide-note safe"><strong>연결 앱 데이터는 유지됩니다</strong><span>Claude와 Codex 앱의 로그인 정보, 설정 및 대화 데이터는 삭제하지 않습니다.</span></div>
             </section>
 
             <section className="guide-section" id="troubleshooting">
               <p className="guide-number">07</p><h2>문제 해결</h2>
               <details><summary>위젯이 보이지 않아요.</summary><p>알림 영역의 dejavu 아이콘을 열어 위젯 표시 상태를 확인하세요. 그래도 보이지 않으면 설정에서 배치를 작업표시줄 오른쪽 또는 화면 오른쪽 위로 바꿔 위치를 복구할 수 있습니다.</p></details>
               <details><summary>Claude 또는 Codex 하나만 표시돼요.</summary><p>자동 감지는 로그인과 로컬 실행 환경이 준비된 서비스만 표시합니다. 두 서비스를 항상 표시하려면 설정의 표시할 서비스에서 <strong>Claude + Codex</strong>를 선택하세요.</p></details>
-              <details><summary>사용량이 갱신되지 않아요.</summary><p>Claude Code 또는 Codex CLI의 로그인 상태를 확인한 뒤 트레이 메뉴에서 지금 새로고침을 실행하세요. 서비스 측 제한이나 네트워크 오류가 있으면 마지막 정상 값을 유지합니다.</p></details>
+              <details><summary>사용량이 갱신되지 않아요.</summary><p>Claude Desktop·Claude Code 또는 Codex Desktop·CLI의 로그인 상태를 확인한 뒤 트레이 메뉴에서 지금 새로고침을 실행하세요. 서비스 측 제한이나 네트워크 오류가 있으면 마지막 정상 값을 유지합니다.</p></details>
               <details><summary>도움이 더 필요해요.</summary><p>민감한 토큰이나 개인정보를 제외한 뒤 <a href={`${repositoryUrl}/issues`} target="_blank" rel="noreferrer">GitHub Issues</a>에 Windows 버전, dejavu 버전과 증상을 남겨주세요.</p></details>
             </section>
           </article>

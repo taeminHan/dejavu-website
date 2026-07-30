@@ -1,6 +1,7 @@
 services:
   dejavu-site:
-    image: dejavu-website:0.9.0-rc.1
+    image: dejavu-website:latest-arm64
+    platform: linux/arm64
     container_name: dejavu-site
     restart: unless-stopped
     expose:
