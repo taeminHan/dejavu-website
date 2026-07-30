@@ -10,8 +10,11 @@ type Release = { tag_name: string; html_url: string; assets: ReleaseAsset[] }
 
 const features = [
   { number: '01', title: 'Claude와 Codex를 한눈에', body: '5시간·주간 사용률과 다음 초기화 시각을 하나의 작은 위젯에서 확인하세요.' },
-  { number: '02', title: '방해하지 않는 상시 표시', body: '투명도, 위치, 크기와 한 줄·두 줄 배치를 작업 환경에 맞게 조절할 수 있습니다.' },
+  { number: '02', title: '방해하지 않는 상시 표시', body: '투명도, 위치와 진행률 표시 방식을 작업 환경에 맞게 조절할 수 있습니다.' },
   { number: '03', title: '내 PC에서 직접 연결', body: '별도 dejavu 계정이나 중계 서버 없이 로컬 Claude Code와 Codex 로그인을 사용합니다.' },
+  { number: '04', title: '진짜 작은 크기부터', body: '작음·중간·큼 세 단계와 한 줄·두 줄 배치로 필요한 정보만 알맞게 놓을 수 있습니다.' },
+  { number: '05', title: '흐름을 끊지 않는 업데이트', body: '설정 화면에서 새 버전을 바로 확인하고, 앱 안에서 다운로드·적용한 뒤 자동으로 다시 시작합니다.' },
+  { number: '06', title: '지울 때는 깔끔하게', body: '제거하면 앱과 시작프로그램뿐 아니라 dejavu의 설정·위치·캐시·진단 파일까지 함께 정리합니다.' },
 ]
 
 const progressStyle = (value: number) => ({ '--progress': `${value}%` }) as CSSProperties
@@ -113,7 +116,7 @@ function LandingPage() {
         </section>
 
         <section className="trust-strip" aria-label="제품 특징 요약" data-reveal="fade">
-          <span>항상 표시</span><i /><span>약 1분 자동 갱신</span><i /><span>별도 계정 없음</span><i /><span>소스 공개</span>
+          <span>항상 표시</span><i /><span>약 1분 자동 갱신</span><i /><span>앱 내 업데이트</span><i /><span>완전 제거</span><i /><span>소스 공개</span>
         </section>
 
         <section className="features-section" id="features">
@@ -134,7 +137,7 @@ function LandingPage() {
           <div className="privacy-orbit" aria-hidden="true" data-reveal="scale"><span className="brand-mark large"><span /></span></div>
           <div className="privacy-copy" data-reveal="right">
             <p className="section-kicker">LOCAL FIRST</p><h2><span className="nowrap">당신의 데이터는</span><br />당신의 PC에.</h2>
-            <p>dejavu는 자체 계정이나 중계 서버를 운영하지 않습니다. 사용량은 이 PC에 로그인된 Claude Code와 Codex에서 조회하며 토큰과 대화 내용은 dejavu 설정에 저장하지 않습니다.</p>
+            <p>dejavu는 자체 계정이나 중계 서버를 운영하지 않습니다. 사용량은 이 PC에 로그인된 Claude Code와 Codex에서 조회하며 토큰과 대화 내용은 dejavu 설정에 저장하지 않습니다. 앱을 제거하면 dejavu가 만든 로컬 데이터도 함께 정리됩니다.</p>
             <a href={`${repositoryUrl}/blob/main/PRIVACY.md`} target="_blank" rel="noreferrer">개인정보 처리 방식 자세히 보기 <span aria-hidden="true">→</span></a>
           </div>
         </section>
@@ -147,6 +150,15 @@ function LandingPage() {
             </a>
             <div className="download-meta"><span>{releaseLabel}</span><span>Windows 11 · x64</span></div>
             {portable && <a className="portable-link" href={portable.browser_download_url}>휴대용 ZIP 받기</a>}
+          </div>
+        </section>
+
+        <section className="name-story" aria-labelledby="name-story-title" data-reveal="up">
+          <div className="name-story-caption"><span>NAME ORIGIN</span><i /> 매우 치밀한 네이밍 과정</div>
+          <div className="name-story-copy">
+            <h2 id="name-story-title">이름이 <em>Dejavu</em>인 이유는</h2>
+            <p>그냥 리센느 <strong>Deja Vu</strong> 듣다가<br />떠오른 아이디어여서 그렇습니다.</p>
+            <span className="name-story-cheer">리센느 화이팅</span>
           </div>
         </section>
       </main>
