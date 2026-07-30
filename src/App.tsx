@@ -7,6 +7,25 @@ const guideUrl = '/dejavu/guide/'
 
 type ReleaseAsset = { name: string; browser_download_url: string }
 type Release = { tag_name: string; html_url: string; assets: ReleaseAsset[] }
+const brandMarkUrl = `${import.meta.env.BASE_URL}brand-mark.svg`
+
+function BrandMark({ size = 'default' }: { size?: 'small' | 'default' | 'large' }) {
+  return <img className={`brand-mark ${size}`} src={brandMarkUrl} alt="" aria-hidden="true" />
+}
+
+function FeatureIllustration({ number }: { number: string }) {
+  const commonProps = { fill: 'none', stroke: 'currentColor', strokeWidth: 2.4, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const }
+  const artwork = {
+    '01': <><rect x="34" y="29" width="172" height="102" rx="14" /><path d="M34 54h172" /><circle cx="49" cy="42" r="3" fill="currentColor" stroke="none" /><path d="M57 78h42M57 91h112M57 106h78" /><path className="accent-fill" d="M57 78h70" /></>,
+    '02': <><rect x="34" y="31" width="172" height="98" rx="14" /><rect x="121" y="76" width="67" height="35" rx="8" className="raised" /><path d="M48 47h46M48 61h86" /><path d="M140 93h28" className="accent-stroke" /><circle cx="181" cy="47" r="5" className="accent-fill" /></>,
+    '03': <><rect x="44" y="27" width="152" height="106" rx="14" /><path d="M101 133v13M139 133v13M88 146h64" /><path d="M120 52l27 10v20c0 19-12 31-27 38-15-7-27-19-27-38V62z" className="raised" /><path d="M108 83l8 8 17-19" className="accent-stroke" /></>,
+    '04': <><rect x="32" y="91" width="75" height="39" rx="9" /><rect x="82" y="60" width="94" height="52" rx="10" className="raised" /><rect x="123" y="29" width="86" height="65" rx="12" /><path d="M46 110h47M97 86h64M140 62h52" className="accent-stroke" /></>,
+    '05': <><circle cx="120" cy="78" r="46" /><path d="M86 47a46 46 0 0 1 72 11M158 58l-2-18M158 58l18-3" className="accent-stroke" /><path d="M153 106a46 46 0 0 1-70-8M83 98l1 18M83 98l-18 5" /><path d="M89 142h62" /><path d="M89 142h43" className="accent-stroke" /></>,
+    '06': <><path d="M82 52h76l-5 81H87z" className="raised" /><path d="M72 52h96M101 52l3-16h32l3 16M106 73v38M134 73v38" /><circle cx="166" cy="116" r="23" className="status-circle" /><path d="M155 116l7 7 15-17" className="success-stroke" /></>,
+  }[number]
+
+  return <div className="feature-illustration" aria-hidden="true"><svg viewBox="0 0 240 160" {...commonProps}>{artwork}</svg></div>
+}
 
 const features = [
   { number: '01', title: 'Claude와 Codex를 한눈에', body: '5시간·주간 사용률과 다음 초기화 시각을 하나의 작은 위젯에서 확인하세요.' },
@@ -60,7 +79,7 @@ function LandingPage() {
     <div className="site-shell">
       <header className="site-header">
         <a className="brand" href="#top" aria-label="dejavu 홈">
-          <span className="brand-mark" aria-hidden="true"><span /></span><span>dejavu</span>
+          <BrandMark /><span>dejavu</span>
         </a>
         <button className="menu-button" type="button" aria-label="메뉴 열기" aria-expanded={menuOpen}
           onClick={() => setMenuOpen((open) => !open)}><span /><span /></button>
@@ -92,7 +111,7 @@ function LandingPage() {
             <div className="ambient ambient-one" /><div className="ambient ambient-two" />
             <div className="widget-window">
               <div className="widget-topbar">
-                <div className="widget-brand"><span className="brand-mark small"><span /></span> dejavu</div>
+                <div className="widget-brand"><BrandMark size="small" /> dejavu</div>
                 <div className="window-controls" aria-hidden="true"><i /><i /><i /></div>
               </div>
               <div className="service-row">
@@ -126,7 +145,7 @@ function LandingPage() {
               <article className="feature-card" key={feature.number} data-reveal="up"
                 style={{ '--delay': `${index * 120}ms` } as CSSProperties}>
                 <span className="feature-number">{feature.number}</span>
-                <div className={`feature-illustration illustration-${feature.number}`} aria-hidden="true"><span /><span /><span /></div>
+                <FeatureIllustration number={feature.number} />
                 <h3>{feature.title}</h3><p>{feature.body}</p>
               </article>
             ))}
@@ -134,7 +153,7 @@ function LandingPage() {
         </section>
 
         <section className="privacy-section" id="privacy">
-          <div className="privacy-orbit" aria-hidden="true" data-reveal="scale"><span className="brand-mark large"><span /></span></div>
+          <div className="privacy-orbit" aria-hidden="true" data-reveal="scale"><BrandMark size="large" /></div>
           <div className="privacy-copy" data-reveal="right">
             <p className="section-kicker">LOCAL FIRST</p><h2><span className="nowrap">당신의 데이터는</span><br />당신의 PC에.</h2>
             <p>dejavu는 자체 계정이나 중계 서버를 운영하지 않습니다. 사용량은 이 PC에 로그인된 Claude Code와 Codex에서 조회하며 토큰과 대화 내용은 dejavu 설정에 저장하지 않습니다. 앱을 제거하면 dejavu가 만든 로컬 데이터도 함께 정리됩니다.</p>
@@ -164,7 +183,7 @@ function LandingPage() {
       </main>
 
       <footer>
-        <a className="brand footer-brand" href="#top"><span className="brand-mark" aria-hidden="true"><span /></span><span>dejavu</span></a>
+        <a className="brand footer-brand" href="#top"><BrandMark /><span>dejavu</span></a>
         <p>Claude와 Codex 사용량을 위한 작은 Windows 위젯.</p>
         <div className="footer-links"><a href={guideUrl}>사용 설명서</a><a href={repositoryUrl} target="_blank" rel="noreferrer">GitHub</a><a href={`${repositoryUrl}/blob/main/PRIVACY.md`} target="_blank" rel="noreferrer">개인정보</a><a href={`${repositoryUrl}/blob/main/SECURITY.md`} target="_blank" rel="noreferrer">보안</a></div>
         <small>© 2026 taeminHan and contributors · MIT License</small>
@@ -188,7 +207,7 @@ function GuidePage() {
     <div className="site-shell guide-shell">
       <header className="site-header">
         <a className="brand" href={homeUrl} aria-label="dejavu 홈">
-          <span className="brand-mark" aria-hidden="true"><span /></span><span>dejavu</span>
+          <BrandMark /><span>dejavu</span>
         </a>
         <nav className="site-nav guide-top-nav" aria-label="설명서 메뉴">
           <a href={homeUrl}>제품 소개</a>
@@ -282,7 +301,7 @@ function GuidePage() {
       </main>
 
       <footer className="guide-footer">
-        <a className="brand footer-brand" href={homeUrl}><span className="brand-mark" aria-hidden="true"><span /></span><span>dejavu</span></a>
+        <a className="brand footer-brand" href={homeUrl}><BrandMark /><span>dejavu</span></a>
         <p>설명서에서 해결되지 않았다면 GitHub Issues로 알려주세요.</p>
         <div className="footer-links"><a href={homeUrl}>제품 소개</a><a href={`${repositoryUrl}/issues`} target="_blank" rel="noreferrer">문제 신고</a><a href={`${repositoryUrl}/blob/main/PRIVACY.md`} target="_blank" rel="noreferrer">개인정보</a></div>
       </footer>
