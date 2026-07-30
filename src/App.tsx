@@ -19,8 +19,29 @@ function FeatureIllustration({ number }: { number: string }) {
     '01': <><rect x="34" y="29" width="172" height="102" rx="14" /><path d="M34 54h172" /><circle cx="49" cy="42" r="3" fill="currentColor" stroke="none" /><path d="M57 78h42M57 91h112M57 106h78" /><path className="accent-fill" d="M57 78h70" /></>,
     '02': <><rect x="34" y="31" width="172" height="98" rx="14" /><rect x="121" y="76" width="67" height="35" rx="8" className="raised" /><path d="M48 47h46M48 61h86" /><path d="M140 93h28" className="accent-stroke" /><circle cx="181" cy="47" r="5" className="accent-fill" /></>,
     '03': <><rect x="44" y="27" width="152" height="106" rx="14" /><path d="M101 133v13M139 133v13M88 146h64" /><path d="M120 52l27 10v20c0 19-12 31-27 38-15-7-27-19-27-38V62z" className="raised" /><path d="M108 83l8 8 17-19" className="accent-stroke" /></>,
-    '04': <><rect x="32" y="91" width="75" height="39" rx="9" /><rect x="82" y="60" width="94" height="52" rx="10" className="raised" /><rect x="123" y="29" width="86" height="65" rx="12" /><path d="M46 110h47M97 86h64M140 62h52" className="accent-stroke" /></>,
-    '05': <><circle cx="120" cy="78" r="46" /><path d="M86 47a46 46 0 0 1 72 11M158 58l-2-18M158 58l18-3" className="accent-stroke" /><path d="M153 106a46 46 0 0 1-70-8M83 98l1 18M83 98l-18 5" /><path d="M89 142h62" /><path d="M89 142h43" className="accent-stroke" /></>,
+    '04': <>
+      <rect x="26" y="94" width="48" height="32" rx="8" className="raised" />
+      <circle cx="39" cy="110" r="6" /><path d="M50 106h15M50 114h10" className="accent-stroke" />
+      <rect x="88" y="72" width="62" height="54" rx="10" className="raised" />
+      <path d="M88 88h62M99 101h40M99 114h28" /><path d="M99 101h24" className="accent-stroke" />
+      <rect x="164" y="44" width="70" height="82" rx="12" className="raised" />
+      <path d="M164 62h70M176 76h46M176 91h46M176 106h46" /><path d="M176 76h32M176 91h21M176 106h38" className="accent-stroke" />
+      <path d="M22 136h216M50 132v8M119 132v8M199 132v8" />
+      <text x="50" y="153" textAnchor="middle" className="size-label">S</text>
+      <text x="119" y="153" textAnchor="middle" className="size-label">M</text>
+      <text x="199" y="153" textAnchor="middle" className="size-label">L</text>
+    </>,
+    '05': <>
+      <path d="M77 80h18m-6-6 6 6-6 6M145 80h18m-6-6 6 6-6 6" className="flow-connector" />
+      <circle cx="52" cy="80" r="25" className="raised" />
+      <path d="M40 80l8 8 16-18" className="accent-stroke" />
+      <circle cx="120" cy="80" r="25" className="raised" />
+      <path d="M120 64v22m-8-8 8 8 8-8M108 95h24" className="accent-stroke" />
+      <circle cx="188" cy="80" r="25" className="raised" />
+      <path d="M201 70a17 17 0 1 0 2 19M201 70V59m0 11h-11" className="accent-stroke" />
+      <circle cx="52" cy="124" r="2.5" className="accent-fill" /><circle cx="120" cy="124" r="2.5" /><circle cx="188" cy="124" r="2.5" />
+      <path d="M55 124h62M123 124h62" className="flow-timeline" />
+    </>,
     '06': <><path d="M82 52h76l-5 81H87z" className="raised" /><path d="M72 52h96M101 52l3-16h32l3 16M106 73v38M134 73v38" /><circle cx="166" cy="116" r="23" className="status-circle" /><path d="M155 116l7 7 15-17" className="success-stroke" /></>,
   }[number]
 
