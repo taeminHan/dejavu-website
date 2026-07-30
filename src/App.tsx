@@ -1,12 +1,13 @@
 import { useEffect, useState, type CSSProperties } from 'react'
 
 const repositoryUrl = 'https://github.com/taeminHan/dejavu'
-const directDownloadUrl = `${repositoryUrl}/releases/latest/download/dejavu-Setup.exe`
+const fallbackReleaseTag = 'v0.9.0-rc.5'
+const fallbackDownloadUrl = `${repositoryUrl}/releases/download/${fallbackReleaseTag}/dejavu-Setup.exe`
 const homeUrl = '/dejavu/'
 const guideUrl = '/dejavu/guide/'
 
 type ReleaseAsset = { name: string; browser_download_url: string }
-type Release = { tag_name: string; html_url: string; assets: ReleaseAsset[] }
+type Release = { tag_name: string; html_url: string; draft: boolean; published_at: string; assets: ReleaseAsset[] }
 const brandMarkUrl = `${import.meta.env.BASE_URL}brand-mark.svg`
 
 function BrandMark({ size = 'default' }: { size?: 'small' | 'default' | 'large' }) {
@@ -65,12 +66,18 @@ function LandingPage() {
 
   useEffect(() => {
     const controller = new AbortController()
-    fetch('https://api.github.com/repos/taeminHan/dejavu/releases/latest', {
+    fetch('https://api.github.com/repos/taeminHan/dejavu/releases?per_page=10', {
       signal: controller.signal,
       headers: { Accept: 'application/vnd.github+json' },
     })
       .then((response) => (response.ok ? response.json() : Promise.reject()))
-      .then((data: Release) => setRelease(data))
+      .then((releases: Release[]) => {
+        const newestRelease = releases
+          .filter((candidate) => !candidate.draft)
+          .sort((left, right) => Date.parse(right.published_at) - Date.parse(left.published_at))[0]
+
+        setRelease(newestRelease ?? null)
+      })
       .catch(() => undefined)
     return () => controller.abort()
   }, [])
@@ -92,9 +99,10 @@ function LandingPage() {
     return () => observer.disconnect()
   }, [])
 
-  const portable = release?.assets.find((asset) => asset.name.toLowerCase().includes('win-x64.zip'))
-  const downloadHref = directDownloadUrl
-  const releaseLabel = release?.tag_name ?? '최신 버전'
+  const portable = release?.assets.find((asset) => asset.name.toLowerCase().endsWith('portable.zip'))
+  const installer = release?.assets.find((asset) => asset.name === 'dejavu-Setup.exe')
+  const downloadHref = installer?.browser_download_url ?? fallbackDownloadUrl
+  const releaseLabel = release?.tag_name ?? fallbackReleaseTag
 
   return (
     <div className="site-shell">
@@ -233,7 +241,7 @@ function GuidePage() {
         <nav className="site-nav guide-top-nav" aria-label="설명서 메뉴">
           <a href={homeUrl}>제품 소개</a>
           <a href={repositoryUrl} target="_blank" rel="noreferrer">GitHub</a>
-          <a className="nav-download" href={directDownloadUrl}>다운로드</a>
+          <a className="nav-download" href={fallbackDownloadUrl}>다운로드</a>
         </nav>
       </header>
 
@@ -257,7 +265,7 @@ function GuidePage() {
             <section className="guide-section" id="install">
               <p className="guide-number">01</p><h2>설치하기</h2>
               <ol className="guide-steps">
-                <li><strong>설치 프로그램 받기</strong><span><a href={directDownloadUrl}>dejavu-Setup.exe</a>를 내려받습니다.</span></li>
+                <li><strong>설치 프로그램 받기</strong><span><a href={fallbackDownloadUrl}>dejavu-Setup.exe</a>를 내려받습니다.</span></li>
                 <li><strong>설치 실행</strong><span>설치 파일을 실행하면 현재 Windows 사용자 계정에 설치됩니다. 관리자 권한은 필요하지 않습니다.</span></li>
                 <li><strong>SmartScreen 확인</strong><span>아직 공인 코드 서명이 없는 시험판에서는 Windows의 게시자 경고가 표시될 수 있습니다.</span></li>
               </ol>
