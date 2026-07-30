@@ -107,6 +107,9 @@ h1 em { color: #7e9dff; font-style: normal; }
 .feature-illustration .accent-fill { color: #7898ff; fill: currentColor; stroke: none; }
 .feature-illustration .status-circle { fill: #11221d; stroke: rgba(92,190,157,.55); }
 .feature-illustration .success-stroke { color: #83d4b9; stroke: currentColor; }
+.feature-illustration .size-label { fill: #8c96aa; stroke: none; font: 700 10px/1 'Segoe UI', sans-serif; letter-spacing: .08em; }
+.feature-illustration .flow-connector { color: #66738a; stroke: currentColor; }
+.feature-illustration .flow-timeline { color: #394358; stroke: currentColor; stroke-width: 1.5; }
 .feature-card h3 { position: relative; margin-bottom: 12px; font-size: 18px; letter-spacing: -.025em; }
 .feature-card p { position: relative; color: #7f8797; font-size: 14px; line-height: 1.75; }
 
