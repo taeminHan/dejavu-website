@@ -26,11 +26,34 @@ pnpm build
 
 ## Docker
 
-이미지는 `/dejavu/` 경로를 8080 포트로 제공합니다.
+`main` 브랜치의 빌드와 정적 검사가 성공하면 GitHub Actions가 `linux/amd64`와 `linux/arm64` 이미지를 함께 빌드해 GHCR에 게시합니다.
 
-```powershell
-docker buildx build --platform linux/arm64 -t dejavu-website:0.9.0-rc.6-arm64 -t dejavu-website:latest-arm64 --load .
-docker run --rm --platform linux/arm64 -p 18080:8080 dejavu-website:latest-arm64
+- 최신 이미지: `ghcr.io/taeminhan/dejavu-website:latest`
+- 커밋별 이미지: `ghcr.io/taeminhan/dejavu-website:sha-<commit>`
+
+이미지는 `/dejavu/` 경로를 8080 포트로 제공합니다. 서버의 Compose 파일은 [`deploy/docker-compose.example.yml`](deploy/docker-compose.example.yml)을 기준으로 구성합니다.
+
+`main`에 반영된 이미지는 `production` 환경의 SSH 설정을 사용해 서버에도 자동 배포됩니다. 배포 작업은 새 이미지를 받은 뒤 컨테이너가 정상 상태가 될 때까지 확인합니다.
+
+필요한 Environment secrets:
+
+- `DEPLOY_HOST`
+- `DEPLOY_SSH_KEY`
+- `DEPLOY_KNOWN_HOSTS`
+
+필요한 Environment variables:
+
+- `DEPLOY_PORT`
+- `DEPLOY_USER`
+- `DEPLOY_PATH`
+
+문제가 생겼을 때 서버에서 수동으로 갱신하려면:
+
+```bash
+docker compose -f dejavu-compose.yml pull
+docker compose -f dejavu-compose.yml up -d --remove-orphans
 ```
 
-기존 `taemtaem.dev` Nginx 컨테이너와 `dejavu-site` 컨테이너를 같은 Docker 네트워크에 연결한 뒤, HTTPS 서버의 기존 `location /`보다 앞에 `deploy/taemtaem-nginx-location.conf` 내용을 추가합니다. `proxy_pass` 뒤에 슬래시를 붙이지 않아 `/dejavu/` 요청 경로가 그대로 유지되어야 합니다.
+GHCR 패키지는 처음 게시된 직후 기본적으로 비공개입니다. GitHub의 패키지 설정에서 한 번만 공개로 변경하면 서버에서 별도 로그인 없이 이미지를 받을 수 있습니다.
+
+기존 `taemtaem.dev` Nginx 컨테이너와 `dejavu-site` 컨테이너를 `f1ti_default` 네트워크에 연결한 뒤, HTTPS 서버의 기존 `location /`보다 앞에 `deploy/taemtaem-nginx-location.conf` 내용을 추가합니다. `proxy_pass` 뒤에 슬래시를 붙이지 않아 `/dejavu/` 요청 경로가 그대로 유지되어야 합니다.

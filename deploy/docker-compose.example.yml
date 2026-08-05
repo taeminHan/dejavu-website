@@ -1,16 +1,14 @@
 services:
   dejavu-site:
-    image: dejavu-website:latest-arm64
-    platform: linux/arm64
+    image: ghcr.io/taeminhan/dejavu-website:latest
     container_name: dejavu-site
     restart: unless-stopped
     expose:
       - "8080"
     networks:
-      - proxy
+      - f1ti-network
 
 networks:
-  proxy:
+  f1ti-network:
     external: true
-    # Replace this with the network currently shared by nginx and f1ti.
-    name: your_existing_proxy_network
+    name: f1ti_default

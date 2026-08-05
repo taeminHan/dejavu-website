@@ -1,7 +1,8 @@
 import { useEffect, useState, type CSSProperties } from 'react'
+import { I18nProvider, LanguageSwitcher, useI18n } from './i18n'
 
 const repositoryUrl = 'https://github.com/taeminHan/dejavu'
-const fallbackReleaseTag = 'v0.9.0-rc.6'
+const fallbackReleaseTag = 'v0.9.0-rc.7'
 const fallbackDownloadUrl = `${repositoryUrl}/releases/download/${fallbackReleaseTag}/dejavu-Setup.exe`
 const homeUrl = '/dejavu/'
 const guideUrl = '/dejavu/guide/'
@@ -61,6 +62,7 @@ const features = [
 const progressStyle = (value: number) => ({ '--progress': `${value}%` }) as CSSProperties
 
 function LandingPage() {
+  const { t, locale } = useI18n()
   const [release, setRelease] = useState<Release | null>(null)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -107,36 +109,37 @@ function LandingPage() {
   return (
     <div className="site-shell">
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="dejavu 홈">
+        <a className="brand" href="#top" aria-label={t('dejavu 홈')}>
           <BrandMark /><span>dejavu</span>
         </a>
-        <button className="menu-button" type="button" aria-label="메뉴 열기" aria-expanded={menuOpen}
+        <button className="menu-button" type="button" aria-label={t('메뉴 열기')} aria-expanded={menuOpen}
           onClick={() => setMenuOpen((open) => !open)}><span /><span /></button>
-        <nav className={menuOpen ? 'site-nav is-open' : 'site-nav'} aria-label="주요 메뉴">
-          <a href="#features" onClick={() => setMenuOpen(false)}>기능</a>
-          <a href={guideUrl}>사용 설명서</a>
-          <a href="#privacy" onClick={() => setMenuOpen(false)}>개인정보</a>
+        <nav className={menuOpen ? 'site-nav is-open' : 'site-nav'} aria-label={t('주요 메뉴')}>
+          <a href="#features" onClick={() => setMenuOpen(false)}>{t('기능')}</a>
+          <a href={guideUrl}>{t('사용 설명서')}</a>
+          <a href="#privacy" onClick={() => setMenuOpen(false)}>{t('개인정보')}</a>
           <a href={repositoryUrl} target="_blank" rel="noreferrer">GitHub</a>
-          <a className="nav-download" href={downloadHref}>다운로드</a>
+          <LanguageSwitcher />
+          <a className="nav-download" href={downloadHref}>{t('다운로드')}</a>
         </nav>
       </header>
 
       <main id="top">
         <section className="hero-section">
           <div className="hero-copy">
-            <div className="eyebrow"><span /> Windows 11용 AI 사용량 위젯</div>
-            <h1>사용량을 확인하는<br />흐름까지 <em>가볍게.</em></h1>
-            <p className="hero-description">Claude와 Codex의 남은 사용량을 바탕화면에서 바로 확인하세요. 작고, 조용하고, 필요할 때 늘 그 자리에 있습니다.</p>
+            <div className="eyebrow"><span /> {t('Windows 11용 AI 사용량 위젯')}</div>
+            <h1>{t('사용량 확인은')}<br />{t('한눈에,')} <em>{t('가볍게.')}</em></h1>
+            <p className="hero-description">{t('Claude와 Codex 사용량을 바탕화면에서 한눈에 확인하세요. 작업을 방해하지 않는 작은 위젯이 필요할 때 늘 같은 자리를 지킵니다.')}</p>
             <div className="hero-actions">
               <a className="primary-button" href={downloadHref}>
-                <span className="windows-glyph" aria-hidden="true"><i /><i /><i /><i /></span>Windows용 다운로드
+                <span className="windows-glyph" aria-hidden="true"><i /><i /><i /><i /></span>{t('Windows용 다운로드')}
               </a>
-              <a className="secondary-button" href={repositoryUrl} target="_blank" rel="noreferrer">소스 코드 보기 <span aria-hidden="true">↗</span></a>
+              <a className="secondary-button" href={repositoryUrl} target="_blank" rel="noreferrer">{t('소스 코드 보기')} <span aria-hidden="true">↗</span></a>
             </div>
-            <p className="release-note">{releaseLabel} · Windows 11 x64 · 무료</p>
+            <p className="release-note">{releaseLabel} · Windows 11 x64 · {t('무료')}</p>
           </div>
 
-          <div className="hero-visual" aria-label="dejavu 위젯 미리보기">
+          <div className="hero-visual" aria-label={t('dejavu 위젯 미리보기')}>
             <div className="ambient ambient-one" /><div className="ambient ambient-two" />
             <div className="widget-window">
               <div className="widget-topbar">
@@ -144,41 +147,41 @@ function LandingPage() {
                 <div className="window-controls" aria-hidden="true"><i /><i /><i /></div>
               </div>
               <div className="service-row">
-                <div className="service-heading"><strong>Codex</strong><span>주간 초기화 금 15:00</span></div>
+                <div className="service-heading"><strong>Codex</strong><span>{t('주간 초기화 금 15:00')}</span></div>
                 <div className="meter-line"><div className="meter"><i style={progressStyle(39)} /></div><b>39%</b></div>
-                <div className="service-meta"><span>5시간 —</span><span>초기화권 2개</span></div>
+                <div className="service-meta"><span>{locale === 'ko' ? '5시간 —' : '5-hour —'}</span><span>{t('초기화권 2개')}</span></div>
               </div>
               <div className="service-divider" />
               <div className="service-row">
-                <div className="service-heading"><strong>Claude</strong><span>5시간 초기화 11:42</span></div>
+                <div className="service-heading"><strong>Claude</strong><span>{t('5시간 초기화 11:42')}</span></div>
                 <div className="meter-line"><div className="meter"><i style={progressStyle(16)} /></div><b>16%</b></div>
-                <div className="service-meta"><span>주간 20%</span><span>Fable 27%</span></div>
+                <div className="service-meta"><span>{t('주간 20%')}</span><span>Fable 27%</span></div>
               </div>
-              <div className="live-pill"><i /> 최신 상태</div>
+              <div className="live-pill"><i /> {t('최신 상태')}</div>
             </div>
             <div className="mini-widget">
               <span>Codex</span><div className="meter"><i style={progressStyle(39)} /></div><b>39%</b>
               <span>Claude</span><div className="meter"><i style={progressStyle(16)} /></div><b>16%</b>
             </div>
           </div>
-          <a className="scroll-cue" href="#overview" aria-label="아래 제품 소개 보기">
-            <span>더 알아보기</span><i aria-hidden="true" />
+          <a className="scroll-cue" href="#overview" aria-label={t('아래 제품 소개 보기')}>
+            <span>{t('더 알아보기')}</span><i aria-hidden="true" />
           </a>
         </section>
 
-        <section className="trust-strip" id="overview" aria-label="제품 특징 요약" data-reveal="fade">
-          <span>항상 표시</span><i /><span>약 1분 자동 갱신</span><i /><span>앱 내 업데이트</span><i /><span>완전 제거</span><i /><span>소스 공개</span>
+        <section className="trust-strip" id="overview" aria-label={t('제품 특징 요약')} data-reveal="fade">
+          <span>{t('항상 표시')}</span><i /><span>{t('약 1분 자동 갱신')}</span><i /><span>{t('앱 내 업데이트')}</span><i /><span>{t('완전 제거')}</span><i /><span>{t('소스 공개')}</span>
         </section>
 
         <section className="features-section" id="features">
-          <div className="section-heading" data-reveal="up"><p>WHY DEJAVU</p><h2>확인은 빠르게.<br />집중은 그대로.</h2></div>
+          <div className="section-heading" data-reveal="up"><p>WHY DEJAVU</p><h2>{t('확인은 한눈에.')}<br />{t('집중은 흐트러짐 없이.')}</h2></div>
           <div className="feature-grid">
             {features.map((feature, index) => (
               <article className="feature-card" key={feature.number} data-reveal="up"
                 style={{ '--delay': `${index * 120}ms` } as CSSProperties}>
                 <span className="feature-number">{feature.number}</span>
                 <FeatureIllustration number={feature.number} />
-                <h3>{feature.title}</h3><p>{feature.body}</p>
+                <h3>{t(feature.title)}</h3><p>{t(feature.body)}</p>
               </article>
             ))}
           </div>
@@ -187,20 +190,20 @@ function LandingPage() {
         <section className="privacy-section" id="privacy">
           <div className="privacy-orbit" aria-hidden="true" data-reveal="scale"><BrandMark size="large" /></div>
           <div className="privacy-copy" data-reveal="right">
-            <p className="section-kicker">LOCAL FIRST</p><h2><span className="nowrap">당신의 데이터는</span><br />당신의 PC에.</h2>
-            <p>dejavu는 자체 계정이나 중계 서버를 운영하지 않습니다. 사용량은 이 PC의 Claude Desktop·Claude Code와 Codex Desktop·CLI에서 조회하며 토큰과 대화 내용은 dejavu 설정에 저장하지 않습니다. 앱을 제거하면 dejavu가 만든 로컬 데이터도 함께 정리됩니다.</p>
-            <a href={`${repositoryUrl}/blob/main/PRIVACY.md`} target="_blank" rel="noreferrer">개인정보 처리 방식 자세히 보기 <span aria-hidden="true">→</span></a>
+            <p className="section-kicker">LOCAL FIRST</p><h2><span className="nowrap">{t('당신의 데이터는')}</span><br />{t('당신의 PC에.')}</h2>
+            <p>{t('dejavu는 자체 계정이나 중계 서버를 운영하지 않습니다. 사용량은 이 PC의 Claude Desktop·Claude Code와 Codex Desktop·CLI에서 조회하며 토큰과 대화 내용은 dejavu 설정에 저장하지 않습니다. 앱을 제거하면 dejavu가 만든 로컬 데이터도 함께 정리됩니다.')}</p>
+            <a href={`${repositoryUrl}/blob/main/PRIVACY.md`} target="_blank" rel="noreferrer">{t('개인정보 처리 방식 자세히 보기')} <span aria-hidden="true">→</span></a>
           </div>
         </section>
 
         <section className="download-section" id="download">
-          <div data-reveal="up"><p className="section-kicker">READY WHEN YOU ARE</p><h2>사용량 대신,<br />작업에 집중하세요.</h2><p>Windows 11에서 바로 시작할 수 있습니다.</p></div>
+          <div data-reveal="up"><p className="section-kicker">READY WHEN YOU ARE</p><h2>{t('사용량은 dejavu에 맡기고,')}<br />{t('당신은 작업에 집중하세요.')}</h2><p>{t('Windows 11에서 바로 시작할 수 있습니다.')}</p></div>
           <div className="download-card" data-reveal="scale" style={{ '--delay': '120ms' } as CSSProperties}>
             <a className="primary-button large-button" href={downloadHref}>
-              <span className="windows-glyph" aria-hidden="true"><i /><i /><i /><i /></span>Windows용 다운로드
+              <span className="windows-glyph" aria-hidden="true"><i /><i /><i /><i /></span>{t('Windows용 다운로드')}
             </a>
             <div className="download-meta"><span>{releaseLabel}</span><span>Windows 11 · x64</span></div>
-            {portable && <a className="portable-link" href={portable.browser_download_url}>휴대용 ZIP 받기</a>}
+            {portable && <a className="portable-link" href={portable.browser_download_url}>{t('휴대용 ZIP 받기')}</a>}
           </div>
         </section>
 
@@ -208,7 +211,7 @@ function LandingPage() {
           <div className="name-story-video">
             <iframe
               src="https://www.youtube-nocookie.com/embed/ZbO9PBdFRdc?rel=0"
-              title="리센느 Deja Vu 영상"
+              title={t('리센느 Deja Vu 영상')}
               loading="lazy"
               referrerPolicy="strict-origin-when-cross-origin"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -216,24 +219,25 @@ function LandingPage() {
             />
           </div>
           <div className="name-story-copy">
-            <h2 id="name-story-title">이름이 <em>Dejavu</em>인 이유는</h2>
-            <p>그냥 리센느 <strong>Deja Vu</strong> 듣다가<br />떠오른 아이디어여서 그렇습니다.</p>
-            <span className="name-story-cheer">리센느 화이팅</span>
+            <h2 id="name-story-title">{locale === 'ko' ? <>이름이 <em>Dejavu</em>인 이유는</> : <>Why the name <em>Dejavu?</em></>}</h2>
+            <p>{t('그냥 리센느 Deja Vu 듣다가')}<br />{t('떠오른 아이디어여서 그렇습니다.')}</p>
+            <span className="name-story-cheer">{t('리센느 화이팅')}</span>
           </div>
         </section>
       </main>
 
       <footer>
         <a className="brand footer-brand" href="#top"><BrandMark /><span>dejavu</span></a>
-        <p>Claude와 Codex 사용량을 위한 작은 Windows 위젯.</p>
-        <div className="footer-links"><a href={guideUrl}>사용 설명서</a><a href={repositoryUrl} target="_blank" rel="noreferrer">GitHub</a><a href={`${repositoryUrl}/blob/main/PRIVACY.md`} target="_blank" rel="noreferrer">개인정보</a><a href={`${repositoryUrl}/blob/main/SECURITY.md`} target="_blank" rel="noreferrer">보안</a></div>
-        <small>© 2026 taeminHan and contributors · MIT License</small>
+        <p>{t('Claude와 Codex 사용량을 위한 작은 Windows 위젯.')}</p>
+        <div className="footer-links"><a href={guideUrl}>{t('사용 설명서')}</a><a href={repositoryUrl} target="_blank" rel="noreferrer">GitHub</a><a href={`${repositoryUrl}/blob/main/PRIVACY.md`} target="_blank" rel="noreferrer">{t('개인정보')}</a><a href={`${repositoryUrl}/blob/main/SECURITY.md`} target="_blank" rel="noreferrer">{t('보안')}</a><a href={`${repositoryUrl}/blob/main/CODE_SIGNING_POLICY.md`} target="_blank" rel="noreferrer">Code signing policy</a></div>
+        <small>© 2026 taeminHan and contributors · MIT License<br />Free code signing provided by SignPath.io, certificate by SignPath Foundation</small>
       </footer>
     </div>
   )
 }
 
 function GuidePage() {
+  const { t, locale } = useI18n()
   const sections = [
     ['install', '설치하기'],
     ['first-run', '처음 시작'],
@@ -247,95 +251,96 @@ function GuidePage() {
   return (
     <div className="site-shell guide-shell">
       <header className="site-header">
-        <a className="brand" href={homeUrl} aria-label="dejavu 홈">
+        <a className="brand" href={homeUrl} aria-label={t('dejavu 홈')}>
           <BrandMark /><span>dejavu</span>
         </a>
-        <nav className="site-nav guide-top-nav" aria-label="설명서 메뉴">
-          <a href={homeUrl}>제품 소개</a>
+        <nav className="site-nav guide-top-nav" aria-label={t('설명서 메뉴')}>
+          <a href={homeUrl}>{t('제품 소개')}</a>
           <a href={repositoryUrl} target="_blank" rel="noreferrer">GitHub</a>
-          <a className="nav-download" href={fallbackDownloadUrl}>다운로드</a>
+          <LanguageSwitcher />
+          <a className="nav-download" href={fallbackDownloadUrl}>{t('다운로드')}</a>
         </nav>
       </header>
 
       <main className="guide-main">
         <section className="guide-hero">
           <div className="eyebrow"><span /> DEJAVU GUIDE</div>
-          <h1>사용 설명서</h1>
-          <p>설치부터 위젯 배치, 서비스 연결, 업데이트와 완전 제거까지 필요한 내용을 한곳에 정리했습니다.</p>
+          <h1>{t('사용 설명서')}</h1>
+          <p>{t('설치부터 위젯 배치, 서비스 연결, 업데이트와 완전 제거까지 필요한 내용을 한곳에 정리했습니다.')}</p>
           <div className="guide-quick-links">
-            <a href="#install">처음 설치하기</a><a href="#settings">설정 살펴보기</a><a href="#troubleshooting">문제 해결</a>
+            <a href="#install">{t('처음 설치하기')}</a><a href="#settings">{t('설정 살펴보기')}</a><a href="#troubleshooting">{t('문제 해결')}</a>
           </div>
         </section>
 
         <div className="guide-layout">
-          <aside className="guide-sidebar" aria-label="설명서 목차">
-            <p>목차</p>
-            {sections.map(([id, label]) => <a href={`#${id}`} key={id}>{label}</a>)}
+          <aside className="guide-sidebar" aria-label={t('목차')}>
+            <p>{t('목차')}</p>
+            {sections.map(([id, label]) => <a href={`#${id}`} key={id}>{t(label)}</a>)}
           </aside>
 
           <article className="guide-content">
             <section className="guide-section" id="install">
-              <p className="guide-number">01</p><h2>설치하기</h2>
+              <p className="guide-number">01</p><h2>{t('설치하기')}</h2>
               <ol className="guide-steps">
-                <li><strong>설치 프로그램 받기</strong><span><a href={fallbackDownloadUrl}>dejavu-Setup.exe</a>를 내려받습니다.</span></li>
-                <li><strong>설치 실행</strong><span>설치 파일을 실행하면 현재 Windows 사용자 계정에 설치됩니다. 관리자 권한은 필요하지 않습니다.</span></li>
-                <li><strong>SmartScreen 확인</strong><span>아직 공인 코드 서명이 없는 시험판에서는 Windows의 게시자 경고가 표시될 수 있습니다.</span></li>
+                <li><strong>{t('설치 프로그램 받기')}</strong><span><a href={fallbackDownloadUrl}>dejavu-Setup.exe</a>{locale === 'ko' ? '를 내려받습니다.' : ' to begin.'}</span></li>
+                <li><strong>{t('설치 실행')}</strong><span>{t('설치 파일을 실행하면 현재 Windows 사용자 계정에 설치됩니다. 관리자 권한은 필요하지 않습니다.')}</span></li>
+                <li><strong>{t('SmartScreen 확인')}</strong><span>{t('아직 공인 코드 서명이 없는 시험판에서는 Windows의 게시자 경고가 표시될 수 있습니다.')}</span></li>
               </ol>
-              <div className="guide-note"><strong>시스템 요구 사항</strong><span>Windows 11 64비트와 Claude Desktop·Claude Code 또는 Codex Desktop·CLI 중 사용할 서비스가 필요합니다.</span></div>
+              <div className="guide-note"><strong>{t('시스템 요구 사항')}</strong><span>{t('Windows 11 64비트와 Claude Desktop·Claude Code 또는 Codex Desktop·CLI 중 사용할 서비스가 필요합니다.')}</span></div>
             </section>
 
             <section className="guide-section" id="first-run">
-              <p className="guide-number">02</p><h2>처음 시작</h2>
-              <p>dejavu는 별도 계정을 만들지 않습니다. 이 PC에 설치된 Claude와 Codex 앱의 로그인 상태를 자동으로 감지합니다.</p>
+              <p className="guide-number">02</p><h2>{t('처음 시작')}</h2>
+              <p>{t('dejavu는 별도 계정을 만들지 않습니다. 이 PC에 설치된 Claude와 Codex 앱의 로그인 상태를 자동으로 감지합니다.')}</p>
               <div className="guide-grid">
-                <div><h3>Claude</h3><p>Claude Desktop만 있어도 최근 5시간·주간 사용률을 감지합니다. Fable과 정확한 초기화 시각까지 보려면 안내 버튼으로 Claude Code에 로그인할 수 있습니다.</p></div>
-                <div><h3>Codex</h3><p>Codex Desktop의 내장 런타임 또는 별도 CLI의 공식 로컬 app-server에서 사용률, 초기화 시각과 초기화권 상태를 읽습니다.</p></div>
+                <div><h3>Claude</h3><p>{t('Claude Desktop만 있어도 최근 5시간·주간 사용률을 감지합니다. Fable과 정확한 초기화 시각까지 보려면 안내 버튼으로 Claude Code에 로그인할 수 있습니다.')}</p></div>
+                <div><h3>Codex</h3><p>{t('Codex Desktop의 내장 런타임 또는 별도 CLI의 공식 로컬 app-server에서 사용률, 초기화 시각과 초기화권 상태를 읽습니다.')}</p></div>
               </div>
-              <p className="guide-muted">토큰, 프롬프트와 대화 내용은 dejavu 설정 파일에 저장하지 않습니다.</p>
+              <p className="guide-muted">{t('토큰, 프롬프트와 대화 내용은 dejavu 설정 파일에 저장하지 않습니다.')}</p>
             </section>
 
             <section className="guide-section" id="widget">
-              <p className="guide-number">03</p><h2>위젯 사용</h2>
+              <p className="guide-number">03</p><h2>{t('위젯 사용')}</h2>
               <ul className="guide-list">
-                <li><strong>위치 이동</strong><span>사용자 지정 배치에서는 위젯을 드래그해 원하는 곳으로 옮길 수 있습니다.</span></li>
-                <li><strong>한 줄 / 두 줄</strong><span>한 줄로 나란히 표시하거나 Codex 위·Claude 아래의 두 줄로 배치할 수 있습니다.</span></li>
-                <li><strong>크기</strong><span>작음, 중간, 큼 중에서 선택합니다. 작음은 가장 적은 화면 공간을 사용합니다.</span></li>
-                <li><strong>표시 값</strong><span>진행률 막대와 퍼센트, 위젯 헤더 표시 여부를 선택할 수 있습니다.</span></li>
+                <li><strong>{t('위치 이동')}</strong><span>{t('사용자 지정 배치에서는 위젯을 드래그해 원하는 곳으로 옮길 수 있습니다.')}</span></li>
+                <li><strong>{t('한 줄 / 두 줄')}</strong><span>{t('한 줄로 나란히 표시하거나 Codex 위·Claude 아래의 두 줄로 배치할 수 있습니다.')}</span></li>
+                <li><strong>{t('크기')}</strong><span>{t('작음, 중간, 큼 중에서 선택합니다. 작음은 가장 적은 화면 공간을 사용합니다.')}</span></li>
+                <li><strong>{t('표시 값')}</strong><span>{t('진행률 막대와 퍼센트, 위젯 헤더 표시 여부를 선택할 수 있습니다.')}</span></li>
               </ul>
             </section>
 
             <section className="guide-section" id="settings">
-              <p className="guide-number">04</p><h2>설정 안내</h2>
+              <p className="guide-number">04</p><h2>{t('설정 안내')}</h2>
               <div className="guide-grid three">
-                <div><h3>서비스</h3><p>기본값인 자동 감지 또는 Claude + Codex, Claude만, Codex만 중에서 표시 대상을 고릅니다.</p></div>
-                <div><h3>모양</h3><p>투명도, 배경색, 강조색, 글자색과 사용량 임계 색상을 작업 환경에 맞게 조정합니다.</p></div>
-                <div><h3>동작</h3><p>새로고침 간격, Windows 시작 시 실행, 시작할 때 업데이트 확인 여부를 설정합니다.</p></div>
+                <div><h3>{t('서비스')}</h3><p>{t('기본값인 자동 감지 또는 Claude + Codex, Claude만, Codex만 중에서 표시 대상을 고릅니다.')}</p></div>
+                <div><h3>{t('모양')}</h3><p>{t('투명도, 배경색, 강조색, 글자색과 사용량 임계 색상을 작업 환경에 맞게 조정합니다.')}</p></div>
+                <div><h3>{t('동작')}</h3><p>{t('새로고침 간격, Windows 시작 시 실행, 시작할 때 업데이트 확인 여부를 설정합니다.')}</p></div>
               </div>
-              <div className="guide-note"><strong>설정 저장</strong><span>변경 내용은 자동 저장되며 위젯에 즉시 반영됩니다.</span></div>
+              <div className="guide-note"><strong>{t('설정 저장')}</strong><span>{t('변경 내용은 자동 저장되며 위젯에 즉시 반영됩니다.')}</span></div>
             </section>
 
             <section className="guide-section" id="updates">
-              <p className="guide-number">05</p><h2>업데이트</h2>
-              <p>설치 버전은 실행할 때 GitHub Releases에서 새 버전을 한 번 확인합니다. 설정의 <strong>업데이트 확인</strong>을 누르면 별도 창 없이 현재 화면에서 확인 결과를 보여줍니다.</p>
-              <p>새 버전이 있을 때 <strong>업데이트 보기</strong>를 선택하면 다운로드 진행률을 확인하고 적용할 수 있습니다. 적용 후 dejavu가 자동으로 다시 시작됩니다.</p>
+              <p className="guide-number">05</p><h2>{t('업데이트')}</h2>
+              <p>{t('설치 버전은 실행할 때 GitHub Releases에서 새 버전을 한 번 확인합니다. 설정의 업데이트 확인을 누르면 별도 창 없이 현재 화면에서 확인 결과를 보여줍니다.')}</p>
+              <p>{t('새 버전이 있을 때 업데이트 보기를 선택하면 다운로드 진행률을 확인하고 적용할 수 있습니다. 적용 후 dejavu가 자동으로 다시 시작됩니다.')}</p>
             </section>
 
             <section className="guide-section" id="uninstall">
-              <p className="guide-number">06</p><h2>완전 제거</h2>
+              <p className="guide-number">06</p><h2>{t('완전 제거')}</h2>
               <ol className="guide-steps compact">
-                <li><strong>Windows 설정 열기</strong><span><em>설정 → 앱 → 설치된 앱</em>으로 이동합니다.</span></li>
-                <li><strong>dejavu 제거</strong><span>dejavu 오른쪽 메뉴에서 <em>제거</em>를 선택합니다.</span></li>
-                <li><strong>로컬 데이터 정리</strong><span>앱, 바로가기, 시작프로그램 등록과 함께 dejavu의 설정, 위젯 위치, 캐시 및 진단 파일이 삭제됩니다.</span></li>
+                <li><strong>{t('Windows 설정 열기')}</strong><span>{t('설정 → 앱 → 설치된 앱으로 이동합니다.')}</span></li>
+                <li><strong>{t('dejavu 제거')}</strong><span>{t('dejavu 오른쪽 메뉴에서 제거를 선택합니다.')}</span></li>
+                <li><strong>{t('로컬 데이터 정리')}</strong><span>{t('앱, 바로가기, 시작프로그램 등록과 함께 dejavu의 설정, 위젯 위치, 캐시 및 진단 파일이 삭제됩니다.')}</span></li>
               </ol>
-              <div className="guide-note safe"><strong>연결 앱 데이터는 유지됩니다</strong><span>Claude와 Codex 앱의 로그인 정보, 설정 및 대화 데이터는 삭제하지 않습니다.</span></div>
+              <div className="guide-note safe"><strong>{t('연결 앱 데이터는 유지됩니다')}</strong><span>{t('Claude와 Codex 앱의 로그인 정보, 설정 및 대화 데이터는 삭제하지 않습니다.')}</span></div>
             </section>
 
             <section className="guide-section" id="troubleshooting">
-              <p className="guide-number">07</p><h2>문제 해결</h2>
-              <details><summary>위젯이 보이지 않아요.</summary><p>알림 영역의 dejavu 아이콘을 열어 위젯 표시 상태를 확인하세요. 그래도 보이지 않으면 설정에서 배치를 작업표시줄 오른쪽 또는 화면 오른쪽 위로 바꿔 위치를 복구할 수 있습니다.</p></details>
-              <details><summary>Claude 또는 Codex 하나만 표시돼요.</summary><p>자동 감지는 로그인과 로컬 실행 환경이 준비된 서비스만 표시합니다. 두 서비스를 항상 표시하려면 설정의 표시할 서비스에서 <strong>Claude + Codex</strong>를 선택하세요.</p></details>
-              <details><summary>사용량이 갱신되지 않아요.</summary><p>Claude Desktop·Claude Code 또는 Codex Desktop·CLI의 로그인 상태를 확인한 뒤 트레이 메뉴에서 지금 새로고침을 실행하세요. 서비스 측 제한이나 네트워크 오류가 있으면 마지막 정상 값을 유지합니다.</p></details>
-              <details><summary>도움이 더 필요해요.</summary><p>민감한 토큰이나 개인정보를 제외한 뒤 <a href={`${repositoryUrl}/issues`} target="_blank" rel="noreferrer">GitHub Issues</a>에 Windows 버전, dejavu 버전과 증상을 남겨주세요.</p></details>
+              <p className="guide-number">07</p><h2>{t('문제 해결')}</h2>
+              <details><summary>{t('위젯이 보이지 않아요.')}</summary><p>{t('알림 영역의 dejavu 아이콘을 열어 위젯 표시 상태를 확인하세요. 그래도 보이지 않으면 설정에서 배치를 작업표시줄 오른쪽 또는 화면 오른쪽 위로 바꿔 위치를 복구할 수 있습니다.')}</p></details>
+              <details><summary>{t('Claude 또는 Codex 하나만 표시돼요.')}</summary><p>{t('자동 감지는 로그인과 로컬 실행 환경이 준비된 서비스만 표시합니다. 두 서비스를 항상 표시하려면 설정의 표시할 서비스에서 Claude + Codex를 선택하세요.')}</p></details>
+              <details><summary>{t('사용량이 갱신되지 않아요.')}</summary><p>{t('Claude Desktop·Claude Code 또는 Codex Desktop·CLI의 로그인 상태를 확인한 뒤 트레이 메뉴에서 지금 새로고침을 실행하세요. 서비스 측 제한이나 네트워크 오류가 있으면 마지막 정상 값을 유지합니다.')}</p></details>
+              <details><summary>{t('도움이 더 필요해요.')}</summary><p>{locale === 'ko' ? <>민감한 토큰이나 개인정보를 제외한 뒤 <a href={`${repositoryUrl}/issues`} target="_blank" rel="noreferrer">GitHub Issues</a>에 Windows 버전, dejavu 버전과 증상을 남겨주세요.</> : <>Remove any sensitive tokens or personal information, then share your Windows version, dejavu version, and symptoms on <a href={`${repositoryUrl}/issues`} target="_blank" rel="noreferrer">GitHub Issues</a>.</>}</p></details>
             </section>
           </article>
         </div>
@@ -343,8 +348,9 @@ function GuidePage() {
 
       <footer className="guide-footer">
         <a className="brand footer-brand" href={homeUrl}><BrandMark /><span>dejavu</span></a>
-        <p>설명서에서 해결되지 않았다면 GitHub Issues로 알려주세요.</p>
-        <div className="footer-links"><a href={homeUrl}>제품 소개</a><a href={`${repositoryUrl}/issues`} target="_blank" rel="noreferrer">문제 신고</a><a href={`${repositoryUrl}/blob/main/PRIVACY.md`} target="_blank" rel="noreferrer">개인정보</a></div>
+        <p>{t('설명서에서 해결되지 않았다면 GitHub Issues로 알려주세요.')}</p>
+        <div className="footer-links"><a href={homeUrl}>{t('제품 소개')}</a><a href={`${repositoryUrl}/issues`} target="_blank" rel="noreferrer">{t('문제 신고')}</a><a href={`${repositoryUrl}/blob/main/PRIVACY.md`} target="_blank" rel="noreferrer">{t('개인정보')}</a><a href={`${repositoryUrl}/blob/main/CODE_SIGNING_POLICY.md`} target="_blank" rel="noreferrer">Code signing policy</a></div>
+        <small>Free code signing provided by SignPath.io, certificate by SignPath Foundation</small>
       </footer>
     </div>
   )
@@ -352,7 +358,7 @@ function GuidePage() {
 
 function App() {
   const isGuide = window.location.pathname.replace(/\/+$/, '').endsWith('/guide')
-  return isGuide ? <GuidePage /> : <LandingPage />
+  return <I18nProvider>{isGuide ? <GuidePage /> : <LandingPage />}</I18nProvider>
 }
 
 export default App
