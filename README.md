@@ -2,7 +2,7 @@
 
 dejavu 소개 및 다운로드를 위한 React + Vite 정적 웹사이트입니다.
 
-Windows 앱의 소스와 Release는 [`taeminHan/dejavu`](https://github.com/taeminHan/dejavu)에서 관리합니다. 이 저장소는 소개 페이지, 사용 설명서와 웹 배포 설정만 포함합니다.
+Windows 및 macOS 앱의 소스와 Release는 [`taeminHan/dejavu`](https://github.com/taeminHan/dejavu)에서 관리합니다. 이 저장소는 소개 페이지, 사용 설명서와 웹 배포 설정만 포함합니다.
 
 - 제품 소개: `https://taemtaem.dev/dejavu/`
 - 사용 설명서: `https://taemtaem.dev/dejavu/guide/`
@@ -22,7 +22,7 @@ pnpm build
 
 생성되는 `dist` 폴더의 내용은 `https://taemtaem.dev/dejavu/` 경로를 기준으로 빌드됩니다. 별도 서버 런타임이나 환경 변수는 필요하지 않습니다.
 
-다운로드 버튼은 GitHub API 응답을 기다리지 않고 최신 Release의 고정 자산명 `dejavu-Setup.exe`를 직접 내려받습니다. GitHub API는 버전 표시와 휴대용 ZIP 링크를 제공할 때만 사용합니다.
+Windows 다운로드 버튼은 GitHub API 응답을 기다리지 않고 최신 Release의 고정 자산명 `dejavu-Setup.exe`를 직접 내려받습니다. macOS 버튼은 API에서 `Dejavu-macOS-arm64.dmg`를 찾으면 직접 내려받고, 아직 자산이 없거나 API를 사용할 수 없으면 최신 Release 페이지로 안전하게 이동합니다. macOS 무료 배포본은 Apple 공증 전이라는 최초 실행 안내를 다운로드 영역과 설명서에 항상 표시합니다.
 
 ## Docker
 

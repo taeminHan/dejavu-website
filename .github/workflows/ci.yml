@@ -63,7 +63,7 @@ jobs:
             type=sha,prefix=sha-
           labels: |
             org.opencontainers.image.title=dejavu website
-            org.opencontainers.image.description=Official website for the dejavu Windows usage widget
+            org.opencontainers.image.description=Official website for the dejavu Windows and macOS usage monitor
             org.opencontainers.image.source=https://github.com/taeminHan/dejavu-website
 
       - name: Build and push multi-platform image
