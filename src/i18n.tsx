@@ -51,8 +51,11 @@ const translations: Record<string, string> = {
   '설정 화면에서 새 버전을 바로 확인하고, 앱 안에서 다운로드·적용한 뒤 자동으로 다시 시작합니다.': 'Check, download, and apply updates in the app, then restart automatically.',
   '지울 때는 깔끔하게': 'A genuinely clean uninstall',
   '제거하면 앱과 시작프로그램뿐 아니라 dejavu의 설정·위치·캐시·진단 파일까지 함께 정리합니다.': 'Uninstalling removes the app, startup entry, settings, position, cache, and diagnostics.',
+  '지울 때도 명확하게': 'Clear removal guidance',
+  '운영체제별 제거 방법과 dejavu 로컬 데이터 위치를 안내하고 연결 앱의 데이터는 건드리지 않습니다.': 'See platform-specific removal steps and the dejavu local-data location without touching connected app data.',
   '당신의 데이터는': 'Your data stays',
   '당신의 PC에.': 'on your PC.',
+  '당신의 기기에.': 'on your device.',
   'dejavu는 자체 계정이나 중계 서버를 운영하지 않습니다. 사용량은 이 PC의 Claude Desktop·Claude Code와 Codex Desktop·CLI에서 조회하며 토큰과 대화 내용은 dejavu 설정에 저장하지 않습니다. 앱을 제거하면 dejavu가 만든 로컬 데이터도 함께 정리됩니다.': 'dejavu has no account system or relay server. It reads usage from Claude Desktop, Claude Code, Codex Desktop, or the Codex CLI on this PC. Tokens and conversations are never stored in dejavu settings, and uninstalling removes the local data dejavu created.',
   '개인정보 처리 방식 자세히 보기': 'Read the privacy details',
   '사용량 대신,': 'Focus on the work,',
@@ -126,6 +129,58 @@ const translations: Record<string, string> = {
   'Claude Desktop·Claude Code 또는 Codex Desktop·CLI의 로그인 상태를 확인한 뒤 트레이 메뉴에서 지금 새로고침을 실행하세요. 서비스 측 제한이나 네트워크 오류가 있으면 마지막 정상 값을 유지합니다.': 'Check your Claude Desktop, Claude Code, Codex Desktop, or CLI session, then select Refresh now from the tray menu. If a service or network error occurs, dejavu keeps the last valid reading.',
   '도움이 더 필요해요.': 'I still need help.',
   '민감한 토큰이나 개인정보를 제외한 뒤 GitHub Issues에 Windows 버전, dejavu 버전과 증상을 남겨주세요.': 'Remove any sensitive tokens or personal information, then share your Windows version, dejavu version, and symptoms on GitHub Issues.',
+  'Windows와 macOS용 AI 사용량 모니터': 'AI usage monitor for Windows and macOS',
+  'Claude와 Codex 사용량을 Windows 위젯과 macOS 메뉴 막대에서 한눈에 확인하세요. 필요한 정보만 골라 작업 흐름을 방해하지 않게 유지합니다.': 'See Claude and Codex usage at a glance in a Windows widget or the macOS menu bar. Choose only the metrics you need and stay in your flow.',
+  'macOS용 다운로드': 'Download for macOS',
+  'macOS 출시 페이지': 'macOS release page',
+  '사용량': 'Usage',
+  '메뉴 막대': 'Menu bar',
+  '주간 기준': 'Weekly window',
+  '메뉴 막대와 위젯': 'Menu bar and widgets',
+  'Claude 5시간·주간·Fable과 Codex 사용률을 필요한 만큼 골라 확인하세요.': 'Choose the Claude 5-hour, weekly, and Fable metrics and Codex usage you want to see.',
+  '운영체제에 맞는 자리': 'At home on each platform',
+  'Windows 위젯과 macOS 메뉴 막대·플로팅 오버레이로 작업 흐름에 자연스럽게 머뭅니다.': 'Use the Windows widget or the macOS menu bar and floating overlay to keep usage naturally in view.',
+  '내 기기에서 직접 연결': 'Connect directly on your device',
+  '보이는 정보는 내 방식대로': 'Show exactly what you want',
+  '서비스, 지표, 진행률과 배치를 골라 필요한 정보만 원하는 밀도로 표시합니다.': 'Choose services, metrics, progress bars, and layout to show the right amount of information.',
+  'dejavu는 자체 계정이나 중계 서버를 운영하지 않습니다. 사용량은 이 기기의 Claude Code와 Codex Desktop·CLI에서 조회하며 토큰과 대화 내용은 dejavu 설정에 저장하지 않습니다.': 'dejavu has no account system or relay server. It reads usage from Claude Code and Codex Desktop or CLI on your device, and never stores tokens or conversations in its settings.',
+  'Windows 11과 Apple silicon Mac에서 시작할 수 있습니다.': 'Get started on Windows 11 or an Apple silicon Mac.',
+  'macOS용 DMG 다운로드': 'Download macOS DMG',
+  '현재 macOS 빌드는 Apple 공증 전 무료 배포본입니다. 첫 실행 시 시스템 설정의 개인정보 보호 및 보안에서 확인 없이 열기를 선택해야 합니다.': 'The current macOS build is a free distribution that has not been notarized by Apple. On first launch, choose Open Anyway in Privacy & Security settings.',
+  'Windows와 macOS에서 만나는 Claude·Codex 사용량 모니터.': 'A Claude and Codex usage monitor for Windows and macOS.',
+  'Windows 코드 서명은 SignPath.io와 SignPath Foundation에서 제공합니다. macOS 무료 빌드는 아직 Apple 공증 전입니다.': 'Windows code signing is provided by SignPath.io and the SignPath Foundation. The free macOS build is not yet notarized by Apple.',
+  '공인 코드 서명이 없는 빌드에서는 Windows의 게시자 경고가 표시될 수 있습니다.': 'Builds without public code signing may show a Windows publisher warning.',
+  'DMG 받기': 'Download the DMG',
+  '응용 프로그램으로 복사': 'Copy to Applications',
+  'DMG를 열고 Dejavu를 Applications 폴더로 드래그합니다.': 'Open the DMG and drag Dejavu into the Applications folder.',
+  '첫 실행 승인': 'Approve the first launch',
+  '현재 무료 배포본은 Apple 공증 전입니다. 앱을 한 번 연 뒤 시스템 설정 → 개인정보 보호 및 보안에서 확인 없이 열기를 선택합니다.': 'The current free build is not notarized by Apple. Try opening it once, then choose Open Anyway in System Settings → Privacy & Security.',
+  '연결 준비': 'Before connecting',
+  'Claude CLI 또는 Codex Desktop·CLI 중 사용할 서비스가 이 기기에 설치되어 있어야 합니다.': 'Install at least one service you plan to use: Claude CLI, Codex Desktop, or the Codex CLI.',
+  'dejavu는 별도 계정을 만들지 않습니다. 이 기기에 설치된 Claude와 Codex의 로컬 로그인 상태를 사용합니다.': 'dejavu does not require its own account. It uses local Claude and Codex sessions on this device.',
+  'Claude CLI 상태 표시 연결로 5시간·주간 사용률을 읽습니다. Fable은 설정에서 확장 접근을 명시적으로 켠 경우에만 추가됩니다.': 'The Claude CLI status-line connection provides 5-hour and weekly usage. Fable is added only when you explicitly enable extended access in Settings.',
+  'Codex Desktop의 내장 런타임 또는 별도 CLI의 공식 로컬 app-server에서 사용률을 읽습니다.': 'Codex usage comes from the official local app server in Codex Desktop or the standalone CLI.',
+  'Windows 위젯': 'Windows widget',
+  '바탕화면 위젯의 크기, 한 줄·두 줄 배치와 위치를 작업 환경에 맞게 조정합니다.': 'Adjust the desktop widget size, one- or two-row layout, and position for your workspace.',
+  'macOS 메뉴 막대': 'macOS menu bar',
+  'Claude 5시간·주간·Fable과 Codex 중 원하는 지표를 여러 개 골라 메뉴 막대에 표시합니다.': 'Choose multiple metrics from Claude 5-hour, weekly, Fable, and Codex to show in the menu bar.',
+  '플로팅 오버레이': 'Floating overlay',
+  'macOS에서는 플로팅 오버레이를 켜거나 끌 수 있습니다. 꺼도 메뉴 막대 앱과 업데이트는 계속 동작합니다.': 'On macOS, you can turn the floating overlay on or off. The menu bar app and updates keep working when it is off.',
+  '퍼센트와 진행률 막대는 같은 값과 임계 색상을 사용하며, 없는 값은 --%로 표시합니다.': 'Percentages and progress bars use the same value and threshold color; missing values appear as --%.',
+  'macOS 시스템 위젯': 'macOS system widget',
+  'Desktop과 알림 센터용 시스템 위젯은 Apple Developer 서명 전 무료 배포의 보장 기능에 포함되지 않습니다.': 'Desktop and Notification Center system widgets are not guaranteed in the free distribution before Apple Developer signing.',
+  '서비스와 지표': 'Services and metrics',
+  'Claude와 Codex 표시 여부, 메뉴 막대 지표, Fable과 플로팅 오버레이를 각자 선택합니다.': 'Choose Claude and Codex visibility, menu bar metrics, Fable, and the floating overlay independently.',
+  '크기, 배치, 진행률과 사용량 임계 색상을 작업 환경에 맞게 조정합니다.': 'Adjust size, layout, progress bars, and usage-threshold colors for your workspace.',
+  '새로고침과 시작 동작, 업데이트 확인 여부를 설정합니다.': 'Configure refresh, launch behavior, and update checks.',
+  'Windows와 macOS는 같은 제품 버전과 GitHub Release를 사용합니다. Windows는 Velopack, macOS는 Sparkle을 통해 새 버전을 확인합니다.': 'Windows and macOS share the same product version and GitHub Release. Windows checks through Velopack, while macOS uses Sparkle.',
+  '자동 확인을 끄더라도 설정에서 수동 확인할 수 있습니다. macOS 업데이트 ZIP은 Sparkle EdDSA 서명으로 무결성을 확인합니다.': 'You can still check manually in Settings when automatic checks are off. macOS verifies update ZIP integrity with a Sparkle EdDSA signature.',
+  '설정 → 앱 → 설치된 앱에서 dejavu를 제거합니다. 앱과 시작프로그램 등록, dejavu 로컬 데이터가 함께 정리됩니다.': 'Remove dejavu from Settings → Apps → Installed apps. The app, startup entry, and local dejavu data are removed together.',
+  'Applications의 Dejavu를 휴지통으로 옮깁니다. 설정까지 초기화하려면 ~/Library/Application Support/dejavu 폴더를 별도로 삭제합니다.': 'Move Dejavu from Applications to the Trash. To reset its settings too, separately delete ~/Library/Application Support/dejavu.',
+  'Windows는 알림 영역에서 위젯 표시 상태를 확인하세요. macOS는 메뉴 막대의 dejavu를 열어 플로팅 오버레이를 다시 켤 수 있습니다.': 'On Windows, check widget visibility from the notification area. On macOS, open dejavu in the menu bar and turn the floating overlay back on.',
+  'Claude CLI 또는 Codex Desktop·CLI의 로그인 상태를 확인한 뒤 메뉴에서 지금 새로고침을 실행하세요. 서비스 측 제한이나 네트워크 오류가 있으면 마지막 정상 값을 유지합니다.': 'Check your Claude CLI, Codex Desktop, or CLI session, then choose Refresh Now from the menu. dejavu keeps the last valid reading during provider or network errors.',
+  'macOS 앱이 열리지 않아요.': 'The macOS app will not open.',
+  '현재 무료 배포본은 Apple 공증 전입니다. 앱을 한 번 실행한 뒤 시스템 설정 → 개인정보 보호 및 보안 → 보안에서 확인 없이 열기를 선택하세요.': 'The current free build is not notarized by Apple. Try opening it once, then choose Open Anyway under System Settings → Privacy & Security → Security.',
 }
 
 type I18nValue = {
@@ -161,12 +216,12 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     document.documentElement.lang = locale
     document.title = locale === 'ko'
-      ? 'dejavu — Claude와 Codex 사용량 위젯'
-      : 'dejavu — Claude and Codex usage widget'
+      ? 'dejavu — Windows와 macOS용 AI 사용량 모니터'
+      : 'dejavu — AI usage monitor for Windows and macOS'
     const description = document.querySelector<HTMLMetaElement>('meta[name="description"]')
     if (description) description.content = locale === 'ko'
-      ? 'Claude와 Codex 사용량을 바탕화면에서 확인하는 Windows 11 위젯, dejavu.'
-      : 'dejavu is a Windows 11 widget for checking Claude and Codex usage from your desktop.'
+      ? 'Claude와 Codex 사용량을 Windows 위젯과 macOS 메뉴 막대에서 확인하는 dejavu.'
+      : 'dejavu shows Claude and Codex usage in a Windows widget and the macOS menu bar.'
   }, [locale])
 
   const value = useMemo<I18nValue>(() => ({
