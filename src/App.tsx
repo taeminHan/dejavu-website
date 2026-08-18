@@ -2,7 +2,7 @@ import { useEffect, useState, type CSSProperties } from 'react'
 import { I18nProvider, LanguageSwitcher, useI18n } from './i18n'
 
 const repositoryUrl = 'https://github.com/taeminHan/dejavu'
-const fallbackReleaseTag = 'v0.9.0'
+const fallbackReleaseTag = 'v0.9.1'
 const fallbackWindowsDownloadUrl = `${repositoryUrl}/releases/latest/download/dejavu-Setup.exe`
 const fallbackMacReleaseUrl = `${repositoryUrl}/releases/latest`
 const homeUrl = '/dejavu/'
