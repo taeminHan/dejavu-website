@@ -70,7 +70,25 @@ export default function LandingPage() {
         <article className="download-card"><PlatformIcon platform="mac" /><h3>macOS</h3><p className="requirements">macOS 14+ · Apple silicon</p><a className="primary-button" href={macUrl ?? releaseUrl}>{macUrl ? text('DMG 받기', 'Download DMG') : text('macOS 출시 페이지', 'macOS releases')} <span aria-hidden="true">{macUrl ? '↓' : '↗'}</span></a><div className="package-meta"><span>{text('Apple silicon Mac용', 'For Apple silicon Macs')}</span><span>DMG</span></div><p className="compatibility-note">{text('Intel Mac은 지원하지 않습니다.', 'Intel Macs are not supported.')}</p><FirstRunNotice platform="mac" /></article></div>
       </section>
       <section className="privacy-section" id="privacy"><span className="privacy-symbol" aria-hidden="true">◎</span><div><h2>{text('별도 계정과 중계 서버 없이 사용합니다.', 'No separate account or relay server.')}</h2><p>{text('내 컴퓨터의 Claude·Codex 로그인 상태를 사용하며, 토큰과 대화 내용은 dejavu 설정에 저장하지 않습니다.', 'Uses your local Claude and Codex sessions. Tokens and conversations are not stored in dejavu settings.')}</p></div><a href={`${repo}/blob/main/PRIVACY.md`} target="_blank" rel="noreferrer">{text('자세히', 'Details')} ↗</a></section>
+      <section className="name-story" aria-labelledby="name-story-title">
+        <div className="name-story-video">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/ZbO9PBdFRdc?rel=0"
+            title={text('리센느 Deja Vu 영상', 'RESCENE — Deja Vu')}
+            loading="lazy"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
+        </div>
+        <div className="name-story-copy">
+          <p className="eyebrow">{text('이름 이야기', 'The name')}</p>
+          <h2 id="name-story-title">{text('이름이 Dejavu인 이유는', 'Why the name Dejavu?')}</h2>
+          <p>{text('리센느의 Deja Vu를 듣다가 떠오른 아이디어에서 시작했습니다.', 'The idea came to me while listening to RESCENE’s Deja Vu.')}</p>
+          <span>{text('리센느 화이팅!', 'Go RESCENE!')}</span>
+        </div>
+      </section>
     </main>
-    <footer><div><a href="#top" className="brand"><img src={brand} alt="" />dejavu</a><p>© 2026 taeminHan and contributors · MIT License</p></div><div className="footer-right"><div className="footer-links"><a href="/dejavu/guide/">{text('사용 설명서', 'Guide')}</a><a href={`${repo}/issues`}>{text('문제 신고', 'Report an issue')}</a><a href={`${repo}/blob/main/SECURITY.md`}>{text('보안', 'Security')}</a><a href={`${repo}/blob/main/CODE_SIGNING_POLICY.md`}>{text('코드 서명 정책', 'Code signing policy')}</a></div><details><summary>{text('이름이 dejavu인 이유', 'Why dejavu?')}</summary><p>{text('리센느의 Deja Vu를 듣다가 떠오른 아이디어에서 시작했습니다. 리센느 화이팅!', 'An idea that came to me while listening to RESCENE’s Deja Vu. Go RESCENE!')} <a href="https://www.youtube.com/watch?v=ZbO9PBdFRdc" target="_blank" rel="noreferrer">{text('영상 보기', 'Watch')} ↗</a></p></details><small>{text('Windows 코드 서명 지원: SignPath.io · SignPath Foundation', 'Windows code signing support: SignPath.io · SignPath Foundation')}</small></div></footer>
+    <footer><div><a href="#top" className="brand"><img src={brand} alt="" />dejavu</a><p>© 2026 taeminHan and contributors · MIT License</p></div><div className="footer-right"><div className="footer-links"><a href="/dejavu/guide/">{text('사용 설명서', 'Guide')}</a><a href={`${repo}/issues`}>{text('문제 신고', 'Report an issue')}</a><a href={`${repo}/blob/main/SECURITY.md`}>{text('보안', 'Security')}</a><a href={`${repo}/blob/main/CODE_SIGNING_POLICY.md`}>{text('코드 서명 정책', 'Code signing policy')}</a></div><small>{text('Windows 코드 서명 지원: SignPath.io · SignPath Foundation', 'Windows code signing support: SignPath.io · SignPath Foundation')}</small></div></footer>
   </div>
 }
